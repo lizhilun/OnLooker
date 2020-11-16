@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">OnLooker</string>
+
+    <string name="home">首页</string>
+    <string name="message">消息</string>
+    <string name="me">我</string>
+    <string name="wan">万</string>
+    <string name="yesterday">昨天</string>
+    <string name="the_day_before_yesterday">前天</string>
+    <string name="cancel">取消</string>
+    <string name="confirm">确认</string>
+    <string name="introduction">简介</string>
+    <string name="account">账号</string>
+    <string name="logout">退出账号</string>
+    <string name="setting">设置</string>
+    <string name="cache">缓存</string>
+    <string name="weibo_detail">微博正文</string>
 </resources>

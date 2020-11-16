@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="ImageTextView">
+        <attr name="drawableWidth_left" format="dimension"/>
+        <attr name="drawableHeight_left" format="dimension"/>
+        <attr name="drawableWidth_top" format="dimension"/>
+        <attr name="drawableHeight_top" format="dimension"/>
+        <attr name="drawableWidth_right" format="dimension"/>
+        <attr name="drawableHeight_right" format="dimension"/>
+        <attr name="drawableWidth_bottom" format="dimension"/>
+        <attr name="drawableHeight_bottom" format="dimension"/>
+    </declare-styleable>
+</resources>

@@ -23,5 +23,7 @@ object AccessTokenUtil
         AccessTokenKeeper.writeAccessToken(Utils.getApp(), token)
     }
 
+    fun getAccessToken() = mAccessToken
+
     fun isTokenSessionValid() = mAccessToken?.isSessionValid == true
 }

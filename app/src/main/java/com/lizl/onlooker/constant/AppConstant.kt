@@ -19,4 +19,9 @@ object AppConstant
 
     const val BUNDLE_DATA_INT = "BUNDLE_DATA_INT"
     const val BUNDLE_DATA_SERIALIZABLE = "BUNDLE_DATA_SERIALIZABLE"
+
+    const val AT_PATTERN_REGEX = "@[\\u4e00-\\u9fa5\\w\\-]+"
+    const val TOPIC_PATTERN_REGEX = "#([^\\#|.]+)#"
+    const val URL_PATTERN_REGEX = "((http|https|ftp|ftps):\\/\\/)?([a-zA-Z0-9-]+\\.){1,5}(com|cn|net|org|hk|tw)((\\/(\\w|-)+(\\.([a-zA-Z]+))?)+)?(\\/)?(\\??([\\.%:a-zA-Z0-9_-]+=[#\\.%:a-zA-Z0-9_-]+(&)?)+)?"
+    const val EMOTION_PATTERN_REGEX = "\\[[a-zA-Z0-9\\u4e00-\\u9fa5]+\\]"
 }

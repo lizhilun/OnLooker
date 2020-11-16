@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<skin.support.constraint.SkinCompatConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:imageCenterView="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/weibo_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorContentBg"
+    android:paddingTop="@dimen/weibo_item_content_padding_edge"
+    android:paddingBottom="@dimen/weibo_item_content_padding_edge">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_avatar"
+        android:layout_width="@dimen/weibo_item_avatar_size"
+        android:layout_height="@dimen/weibo_item_avatar_size"
+        android:layout_marginStart="@dimen/weibo_item_content_padding_edge"
+        android:src="@drawable/ic_baseline_account_circle_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <skin.support.widget.SkinCompatTextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:textColor="@color/colorTextColor"
+        android:textSize="@dimen/global_text_size_small"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/tv_release_time"
+        app:layout_constraintStart_toEndOf="@+id/iv_avatar"
+        app:layout_constraintTop_toTopOf="@+id/iv_avatar"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <skin.support.widget.SkinCompatTextView
+        android:id="@+id/tv_release_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorSecondaryTextColor"
+        android:textSize="@dimen/global_text_size_smaller"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"
+        app:layout_constraintStart_toStartOf="@+id/tv_nickname"
+        app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <skin.support.widget.SkinCompatTextView
+        android:id="@+id/tv_release_device"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/colorSecondaryTextColor"
+        android:textSize="@dimen/global_text_size_smaller"
+        app:layout_constraintStart_toEndOf="@+id/tv_release_time"
+        app:layout_constraintTop_toTopOf="@+id/tv_release_time" />
+
+    <skin.support.widget.SkinCompatTextView
+        android:id="@+id/tv_content"
+        style="@style/GlobalTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/weibo_item_content_padding_edge"
+        android:layout_marginTop="@dimen/weibo_item_text_padding_avatar"
+        android:layout_marginEnd="@dimen/weibo_item_content_padding_edge"
+        android:lineSpacingExtra="5dp"
+        app:layout_constraintTop_toBottomOf="@+id/iv_avatar" />
+
+    <skin.support.constraint.SkinCompatConstraintLayout
+        android:id="@+id/cl_extra_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/weibo_item_content_padding_edge"
+        android:paddingEnd="@dimen/weibo_item_content_padding_edge"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content">
+
+        <skin.support.widget.SkinCompatTextView
+            android:id="@+id/tv_forward_content"
+            style="@style/GlobalTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/weibo_item_extra_padding_text"
+            android:lineSpacingExtra="5dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_image_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/weibo_item_extra_padding_text"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/tv_forward_content"
+            app:spanCount="3" />
+
+    </skin.support.constraint.SkinCompatConstraintLayout>
+
+    <com.lizl.onlooker.custom.view.ImageTextView
+        android:id="@+id/tv_forward"
+        style="@style/WeiboOperationButtonStyle"
+        android:layout_marginTop="@dimen/weibo_item_bottom_padding_extra"
+        android:drawableLeft="@mipmap/ic_forward_gray"
+        app:layout_constraintEnd_toStartOf="@+id/tv_comment"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cl_extra_layout"
+        app:layout_goneMarginTop="15dp"
+        imageCenterView:drawableHeight_left="@dimen/weibo_item_operation_button_image_size"
+        imageCenterView:drawableWidth_left="@dimen/weibo_item_operation_button_image_size" />
+
+    <com.lizl.onlooker.custom.view.ImageTextView
+        android:id="@+id/tv_comment"
+        style="@style/WeiboOperationButtonStyle"
+        android:drawableLeft="@mipmap/ic_comment_gray"
+        app:layout_constraintEnd_toStartOf="@+id/tv_like"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/tv_forward"
+        app:layout_constraintTop_toTopOf="@+id/tv_forward"
+        imageCenterView:drawableHeight_left="@dimen/weibo_item_operation_button_image_size"
+        imageCenterView:drawableWidth_left="@dimen/weibo_item_operation_button_image_size" />
+
+    <com.lizl.onlooker.custom.view.ImageTextView
+        android:id="@+id/tv_like"
+        style="@style/WeiboOperationButtonStyle"
+        android:drawableLeft="@mipmap/ic_like_gray"
+        app:layout_constraintEnd_toStartOf="@+id/iv_more"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/tv_comment"
+        app:layout_constraintTop_toTopOf="@+id/tv_forward"
+        imageCenterView:drawableHeight_left="@dimen/weibo_item_operation_button_image_size"
+        imageCenterView:drawableWidth_left="@dimen/weibo_item_operation_button_image_size" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_more"
+        android:layout_width="40dp"
+        android:layout_height="@dimen/weibo_item_operation_button_height"
+        android:layout_marginEnd="@dimen/weibo_item_content_padding_edge"
+        android:paddingTop="3dp"
+        android:paddingBottom="3dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_more_gray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toEndOf="@+id/tv_like"
+        app:layout_constraintTop_toTopOf="@+id/tv_forward"
+        imageCenterView:drawableHeight_left="@dimen/weibo_item_operation_button_image_size"
+        imageCenterView:drawableWidth_left="@dimen/weibo_item_operation_button_image_size" />
+
+    <androidx.constraintlayout.widget.Group
+        android:id="@+id/group_bottom_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:constraint_referenced_ids="tv_forward, tv_comment,tv_like, iv_more" />
+</skin.support.constraint.SkinCompatConstraintLayout>
