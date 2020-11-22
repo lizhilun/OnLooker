@@ -15,4 +15,10 @@
     <string name="setting">设置</string>
     <string name="cache">缓存</string>
     <string name="weibo_detail">微博正文</string>
+
+    <string name="failed_to_request_permission">存储权限获取失败，请在设置中开启</string>
+    <string name="success">成功</string>
+    <string name="failed">失败</string>
+    <string name="save_image">保存图片</string>
+    <string name="save_all_image">保存所有图片</string>
 </resources>

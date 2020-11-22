@@ -4,12 +4,17 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.widget.ImageView
-import com.blankj.utilcode.util.FileUtils
-import com.blankj.utilcode.util.ScreenUtils
+import com.blankj.utilcode.constant.PermissionConstants
+import com.blankj.utilcode.util.*
 import com.bumptech.glide.request.target.SimpleTarget
 import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
+import com.lizl.onlooker.R
 import com.lizl.onlooker.custom.other.GlideApp
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.*
 
 object ImageUtil
 {
@@ -121,5 +126,37 @@ object ImageUtil
     fun isLargeImage(imageWidth: Int, imageHeight: Int): Boolean
     {
         return (imageHeight.toFloat() / imageWidth > ScreenUtils.getScreenHeight().toFloat() / ScreenUtils.getScreenWidth())
+    }
+
+    fun saveImage(imageUrl: String)
+    {
+        PermissionUtils.permission(PermissionConstants.STORAGE).callback(object : PermissionUtils.FullCallback
+        {
+            override fun onGranted(permissionsGranted: MutableList<String>?)
+            {
+                val formatter = SimpleDateFormat("yyyyMMddHH_mmss_SSS", Locale.getDefault())
+                val savePath = "${PathUtils.getExternalDcimPath()}/OnLooker/IMG_${formatter.format(System.currentTimeMillis())}.jpeg"
+                saveImageToPath(imageUrl, savePath) {
+                    ToastUtils.showShort("${StringUtils.getString(R.string.save_image)}${StringUtils.getString(if (it) R.string.success else R.string.failed)}")
+                    FileUtils.notifySystemToScan(savePath)
+                }
+            }
+
+            override fun onDenied(permissionsDeniedForever: MutableList<String>?, permissionsDenied: MutableList<String>?)
+            {
+                PopupUtil.showConfirmPopup(StringUtils.getString(R.string.failed_to_request_permission)) {
+                    PermissionUtils.launchAppDetailsSettings()
+                }
+            }
+        }).request()
+    }
+
+    private fun saveImageToPath(imageUrl: String, savePath: String, callback: (Boolean) -> Unit)
+    {
+        loadImage(Utils.getApp(), imageUrl) {
+            GlobalScope.launch {
+                callback.invoke(ImageUtils.save(it, savePath, Bitmap.CompressFormat.JPEG))
+            }
+        }
     }
 }

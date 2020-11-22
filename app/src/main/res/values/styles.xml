@@ -37,4 +37,9 @@
         <item name="android:layout_width">@dimen/dialog_button_width</item>
         <item name="android:gravity">center_vertical|end</item>
     </style>
+
+    <style name="GlobalDialogStyle">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
 </resources>

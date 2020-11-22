@@ -2,11 +2,15 @@ package com.lizl.onlooker.custom.popup
 
 import android.content.Context
 import androidx.core.view.isVisible
+import com.blankj.utilcode.util.StringUtils
 import com.lizl.onlooker.R
 import com.lizl.onlooker.mvvm.adapter.ImagePagerAdapter
 import com.lxj.xpopup.enums.PopupAnimation
 import com.lxj.xpopup.impl.FullScreenPopupView
 import com.lizl.onlooker.custom.function.registerOnPageChangeCallback
+import com.lizl.onlooker.mvvm.model.other.OperationModel
+import com.lizl.onlooker.util.DialogUtil
+import com.lizl.onlooker.util.ImageUtil
 import kotlinx.android.synthetic.main.popup_image_viewer.view.*
 
 class PopupImageViewer(context: Context, private val imageList: MutableList<String>, private val position: Int) : FullScreenPopupView(context)
@@ -17,6 +21,7 @@ class PopupImageViewer(context: Context, private val imageList: MutableList<Stri
     {
         popupInfo?.let {
             it.hasShadowBg = true
+            it.hasStatusBar = false
             it.popupAnimation = PopupAnimation.ScaleAlphaFromCenter
         }
 
@@ -34,5 +39,11 @@ class PopupImageViewer(context: Context, private val imageList: MutableList<Stri
         }
 
         imagePagerAdapter.setOnOutsidePhotoTapListener { dismiss() }
+        imagePagerAdapter.setOnImageLongClickListener {
+            DialogUtil.showOperationDialog(mutableListOf<OperationModel>().apply {
+                add(OperationModel(StringUtils.getString(R.string.save_image)) { ImageUtil.saveImage(it) })
+                add(OperationModel(StringUtils.getString(R.string.save_all_image)) { imageList.forEach { ImageUtil.saveImage(it) } })
+            })
+        }
     }
 }

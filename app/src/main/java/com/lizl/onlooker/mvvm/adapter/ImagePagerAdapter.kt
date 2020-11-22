@@ -10,6 +10,7 @@ class ImagePagerAdapter(imageList: MutableList<String>) : BaseQuickAdapter<Strin
 {
 
     private var onOutsidePhotoTapListener: (() -> Unit)? = null
+    private var onImageLongClickListener: ((String) -> Unit)? = null
 
     override fun onItemViewHolderCreated(viewHolder: BaseViewHolder, viewType: Int)
     {
@@ -20,7 +21,14 @@ class ImagePagerAdapter(imageList: MutableList<String>) : BaseQuickAdapter<Strin
     {
         helper.getBinding<ItemImagePagerBinding>()?.apply {
             imageUrl = item
+
             pvImage.setOnOutsidePhotoTapListener { onOutsidePhotoTapListener?.invoke() }
+
+            pvImage.setOnLongClickListener {
+                onImageLongClickListener?.invoke(item)
+                true
+            }
+
             executePendingBindings()
         }
     }
@@ -28,5 +36,10 @@ class ImagePagerAdapter(imageList: MutableList<String>) : BaseQuickAdapter<Strin
     fun setOnOutsidePhotoTapListener(onOutsidePhotoTapListener: () -> Unit)
     {
         this.onOutsidePhotoTapListener = onOutsidePhotoTapListener
+    }
+
+    fun setOnImageLongClickListener(onImageLongClickListener: (String) -> Unit)
+    {
+        this.onImageLongClickListener = onImageLongClickListener
     }
 }

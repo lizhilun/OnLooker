@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="operationModel"
+            type="com.lizl.onlooker.mvvm.model.other.OperationModel" />
+    </data>
+
+    <skin.support.constraint.SkinCompatConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <skin.support.widget.SkinCompatTextView
+            android:id="@+id/tv_operation_name"
+            style="@style/GlobalTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/global_list_item_height"
+            android:gravity="center_vertical"
+            android:paddingStart="@dimen/global_content_padding_edge"
+            android:paddingEnd="@dimen/global_content_padding_edge"
+            android:text="@{operationModel.name}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </skin.support.constraint.SkinCompatConstraintLayout>
+</layout>
