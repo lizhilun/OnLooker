@@ -38,4 +38,8 @@
     <dimen name="weibo_item_bottom_padding_extra">15dp</dimen>
     <dimen name="weibo_item_content_padding_edge">10dp</dimen>
     <dimen name="weibo_item_forward_content_padding_content">10dp</dimen>
+
+    <dimen name="dialog_button_height">60dp</dimen>
+    <dimen name="dialog_button_width">60dp</dimen>
+    <dimen name="dialog_title_text_size">@dimen/global_text_size_biggest</dimen>
 </resources>

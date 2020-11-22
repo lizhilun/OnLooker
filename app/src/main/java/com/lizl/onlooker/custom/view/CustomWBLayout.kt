@@ -8,9 +8,11 @@ import androidx.core.view.isVisible
 import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.Utils
 import com.lizl.onlooker.R
+import com.lizl.onlooker.custom.function.setOnItemClickListener
 import com.lizl.onlooker.mvvm.adapter.ImageGridAdapter
 import com.lizl.onlooker.mvvm.model.weibo.WbModel
 import com.lizl.onlooker.util.ImageUtil
+import com.lizl.onlooker.util.PopupUtil
 import com.lizl.onlooker.util.WBUtil
 import kotlinx.android.synthetic.main.layout_weibo.view.*
 
@@ -53,6 +55,7 @@ class CustomWBLayout(context: Context, attrs: AttributeSet? = null, defStyle: In
 
         // 处理图片
         val imageList = wbModel.getPreviewImageList()
+        val oriImageList = wbModel.getOriImageList()
         civ_image.isVisible = false
         rv_image_list.isVisible = false
         when
@@ -61,11 +64,14 @@ class CustomWBLayout(context: Context, attrs: AttributeSet? = null, defStyle: In
             {
                 civ_image.isVisible = true
                 civ_image.bindImage(imageList[0], maxImageSize, minImageSize)
+                civ_image.setOnClickListener { PopupUtil.showImageViewerPopup(oriImageList[0]) }
             }
             imageList.size > 1  ->
             {
                 rv_image_list.isVisible = true
-                rv_image_list.adapter = ImageGridAdapter(imageList.toMutableList())
+                rv_image_list.adapter = ImageGridAdapter(imageList.toMutableList()).apply {
+                    setOnItemClickListener { it -> PopupUtil.showImageViewerPopup(oriImageList.toMutableList(), imageList.indexOf(it)) }
+                }
             }
         }
 

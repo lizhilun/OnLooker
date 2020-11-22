@@ -7,6 +7,7 @@ import android.widget.ImageView
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ScreenUtils
 import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.Target
 import com.bumptech.glide.request.transition.Transition
 import com.lizl.onlooker.custom.other.GlideApp
 
@@ -17,6 +18,11 @@ object ImageUtil
     fun displayImage(imageView: ImageView, imageUrl: Any)
     {
         GlideApp.with(imageView).load(imageUrl).into(imageView)
+    }
+
+    fun displayOriImage(imageView: ImageView, imageUrl: Any)
+    {
+        GlideApp.with(imageView).load(imageUrl).override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL).into(imageView)
     }
 
     fun loadImage(context: Context, imageUri: String?, callback: (Bitmap) -> Unit)

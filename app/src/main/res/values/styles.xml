@@ -29,4 +29,12 @@
         <item name="android:textColor">@color/colorSecondaryTextColor</item>
         <item name="android:drawablePadding">3dp</item>
     </style>
+
+    <style name="DialogButtonTextStyle">
+        <item name="android:textSize">@dimen/global_text_size</item>
+        <item name="android:textColor">@drawable/color_dialog_button_text</item>
+        <item name="android:layout_height">@dimen/dialog_button_height</item>
+        <item name="android:layout_width">@dimen/dialog_button_width</item>
+        <item name="android:gravity">center_vertical|end</item>
+    </style>
 </resources>

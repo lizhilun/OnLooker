@@ -33,6 +33,14 @@ object DataBindingUtil
     }
 
     @JvmStatic
+    @BindingAdapter("app:oriImageUrl")
+    fun bindOriImageUrl(imageView: ImageView, imageUrl: Any?)
+    {
+        imageUrl ?: return
+        ImageUtil.displayOriImage(imageView, imageUrl)
+    }
+
+    @JvmStatic
     @BindingAdapter("app:imageUrl")
     fun bindImageUrl(imageView: CustomWBImageView, imageUrl: String?)
     {
