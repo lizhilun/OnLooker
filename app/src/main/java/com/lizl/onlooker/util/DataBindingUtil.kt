@@ -3,6 +3,7 @@ package com.lizl.onlooker.util
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.lizl.onlooker.custom.view.CustomWBImageView
 import com.lizl.onlooker.custom.view.CustomWBLayout
 import com.lizl.onlooker.mvvm.model.weibo.WbModel
 
@@ -29,5 +30,13 @@ object DataBindingUtil
     {
         imageUrl ?: return
         ImageUtil.displayImage(imageView, imageUrl)
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:imageUrl")
+    fun bindImageUrl(imageView: CustomWBImageView, imageUrl: String?)
+    {
+        imageUrl ?: return
+        imageView.bindImage(imageUrl)
     }
 }

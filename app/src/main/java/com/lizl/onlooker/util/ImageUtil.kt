@@ -1,14 +1,13 @@
 package com.lizl.onlooker.util
 
+import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.widget.ImageView
 import com.blankj.utilcode.util.FileUtils
 import com.blankj.utilcode.util.ScreenUtils
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.transition.Transition
 import com.lizl.onlooker.custom.other.GlideApp
 
 object ImageUtil
@@ -20,22 +19,15 @@ object ImageUtil
         GlideApp.with(imageView).load(imageUrl).into(imageView)
     }
 
-    fun loadImage(imageView: ImageView, imageUri: String?, callback: (Bitmap) -> Unit)
+    fun loadImage(context: Context, imageUri: String?, callback: (Bitmap) -> Unit)
     {
-        GlideApp.with(imageView).asBitmap().load(imageUri).listener(object : RequestListener<Bitmap>
+        GlideApp.with(context).asBitmap().load(imageUri).into(object : SimpleTarget<Bitmap>()
         {
-            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Bitmap>?, isFirstResource: Boolean): Boolean
+            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?)
             {
-                return false
-            }
-
-            override fun onResourceReady(resource: Bitmap?, model: Any?, target: Target<Bitmap>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean
-            {
-                resource ?: return false
                 callback.invoke(resource)
-                return false
             }
-        }).into(imageView)
+        })
     }
 
     /**

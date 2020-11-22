@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.core.view.isVisible
+import com.blankj.utilcode.util.ScreenUtils
 import com.blankj.utilcode.util.Utils
 import com.lizl.onlooker.R
 import com.lizl.onlooker.mvvm.adapter.ImageGridAdapter
@@ -26,13 +27,16 @@ class CustomWBLayout(context: Context, attrs: AttributeSet? = null, defStyle: In
 
         private val extraLayoutPadding: IntArray = intArrayOf(extraLayoutPaddingEdge, 0, extraLayoutPaddingEdge, 0)
         private val forwardLayoutPadding: IntArray =
-                intArrayOf(extraLayoutPaddingEdge, forwardLayoutPaddingContent, extraLayoutPaddingEdge, forwardLayoutPaddingContent)
+            intArrayOf(extraLayoutPaddingEdge, forwardLayoutPaddingContent, extraLayoutPaddingEdge, forwardLayoutPaddingContent)
+
+        private val minScreenSize = ScreenUtils.getScreenHeight().coerceAtMost(ScreenUtils.getAppScreenWidth())
+        private val maxImageSize = minScreenSize / 5 * 4
+        private val minImageSize = minScreenSize / 5 * 3
     }
 
     init
     {
-        val contentView = LayoutInflater.from(context).inflate(R.layout.layout_weibo, null)
-        addView(contentView)
+        LayoutInflater.from(context).inflate(R.layout.layout_weibo, null).apply { addView(this) }
     }
 
     fun bindWBModel(wbModel: WbModel)
@@ -49,11 +53,20 @@ class CustomWBLayout(context: Context, attrs: AttributeSet? = null, defStyle: In
 
         // 处理图片
         val imageList = wbModel.getPreviewImageList()
-        rv_image_list.isVisible = imageList.isNotEmpty()
-        if (imageList.isNotEmpty())
+        civ_image.isVisible = false
+        rv_image_list.isVisible = false
+        when
         {
-            rv_image_list.isVisible = true
-            rv_image_list.adapter = ImageGridAdapter(imageList.toMutableList())
+            imageList.size == 1 ->
+            {
+                civ_image.isVisible = true
+                civ_image.bindImage(imageList[0], maxImageSize, minImageSize)
+            }
+            imageList.size > 1  ->
+            {
+                rv_image_list.isVisible = true
+                rv_image_list.adapter = ImageGridAdapter(imageList.toMutableList())
+            }
         }
 
         // 处理转发
