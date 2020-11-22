@@ -9,16 +9,23 @@
             type="com.lizl.onlooker.mvvm.adapter.WBAdapter" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_wb_list"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:adapter="@{wbAdapter}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_wb_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:adapter="@{wbAdapter}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
 </layout>

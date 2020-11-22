@@ -80,7 +80,7 @@ class CustomWBLayout(context: Context, attrs: AttributeSet? = null, defStyle: In
         {
             tv_forward_content.isVisible = true
             cl_extra_layout.setPadding(forwardLayoutPadding[0], forwardLayoutPadding[1], forwardLayoutPadding[2], forwardLayoutPadding[3])
-            cl_extra_layout.setBackgroundColor(context.getColor(R.color.colorForwardWBBg))
+            cl_extra_layout.setBackgroundResource(R.color.colorForwardWBBg)
             tv_forward_content.text = WBUtil.handleWeiboText(wbModel.forwardWB?.text.orEmpty(), wbModel.forwardWB?.user?.name)
         }
         else

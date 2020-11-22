@@ -24,6 +24,7 @@
     <dimen name="global_toggle_btn_size">36dp</dimen>
 
     <dimen name="weibo_item_avatar_size">40dp</dimen>
+    <dimen name="weibo_divider_line_height">10dp</dimen>
     <dimen name="weibo_item_operation_button_width">80dp</dimen>
     <dimen name="weibo_item_operation_button_height">24dp</dimen>
     <dimen name="weibo_item_operation_button_image_size">18dp</dimen>

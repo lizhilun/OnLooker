@@ -58,7 +58,7 @@ object SkinUtil
 
     fun isNightModeOn(): Boolean
     {
-        return false
+        return isSystemDarkMode()
     }
 
     private fun isSystemDarkMode(): Boolean

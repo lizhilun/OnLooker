@@ -3,7 +3,7 @@
     <color name="colorPrimary_dark">#121212</color>
     <color name="colorPrimaryDark_dark">#0A0A0A</color>
     <color name="colorAccent_dark">#000000</color>
-    <color name="colorDivideLine_dark">#888888</color>
+    <color name="colorDivideLine_dark">#181818</color>
     <color name="colorTextColor_dark">#DDDDDD</color>
     <color name="colorSecondaryTextColor_dark">#BBBBBB</color>
     <color name="colorThirdTextColor_dark">#999999</color>
@@ -12,7 +12,7 @@
     <color name="colorTransparentBlackBg_dark">#CCFFFFFF</color>
     <color name="colorTransparentWhiteBg_dark">#CC000000</color>
     <color name="colorSvgTint_dark">@color/colorTextColor_dark</color>
-    <color name="colorForwardWBBg_dark">#EEEEEE</color>
+    <color name="colorForwardWBBg_dark">#212121</color>
 
     <color name="color_dialog_bg_dark">#242424</color>
     <color name="color_dialog_button_text_enable_dark">@color/colorPrimary_dark</color>

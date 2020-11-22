@@ -8,7 +8,10 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
+import com.lizl.onlooker.R
+import com.lizl.onlooker.util.SkinUtil
 
 open class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : AppCompatActivity()
 {
@@ -24,8 +27,15 @@ open class BaseActivity<DB : ViewDataBinding>(private val layoutId: Int) : AppCo
         dataBinding = DataBindingUtil.setContentView(this, layoutId)
         dataBinding.lifecycleOwner = this
 
+        updateStatusBarColor()
+
         initView()
         initData()
+    }
+
+    private fun updateStatusBarColor()
+    {
+        BarUtils.setStatusBarColor(this, SkinUtil.getColor(this, R.color.colorContentBg))
     }
 
     override fun onResume()
