@@ -18,5 +18,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(R.layout.activity_spl
         {
             ActivityUtils.startActivity(LoginActivity::class.java)
         }
+        finish()
     }
 }

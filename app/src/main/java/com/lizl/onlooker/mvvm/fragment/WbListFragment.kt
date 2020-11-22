@@ -1,6 +1,5 @@
 package com.lizl.onlooker.mvvm.fragment
 
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
 import com.lizl.news.mvvm.base.BaseFragment
 import com.lizl.onlooker.R
@@ -19,11 +18,19 @@ class WbListFragment : BaseFragment<FragmentWeiboListBinding>(R.layout.fragment_
     override fun initView()
     {
         dataBinding.wbAdapter = wbAdapter
+
+        wbAdapter.loadMoreModule?.let {
+            it.isEnableLoadMore = true
+            it.preLoadNumber = 5
+
+            it.setOnLoadMoreListener { wbHomeViewModel.loadMoreData() }
+        }
     }
 
     override fun initData()
     {
-        wbHomeViewModel.wbListLiveData.observe(this, Observer {
+        wbHomeViewModel.wbListLiveData.observe(this, {
+            wbAdapter.loadMoreModule?.loadMoreComplete()
             wbAdapter.setDiffNewData(it)
         })
 

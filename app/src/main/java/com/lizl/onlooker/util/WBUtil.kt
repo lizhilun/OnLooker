@@ -2,7 +2,6 @@ package com.lizl.onlooker.util
 
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.text.Spannable
@@ -15,7 +14,6 @@ import android.view.View
 import com.blankj.utilcode.util.ColorUtils
 import com.blankj.utilcode.util.StringUtils
 import com.lizl.onlooker.R
-import com.lizl.onlooker.UiApplication
 import com.lizl.onlooker.constant.AppConstant
 import java.text.SimpleDateFormat
 import java.util.*

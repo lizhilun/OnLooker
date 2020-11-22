@@ -2,6 +2,7 @@ package com.lizl.onlooker.mvvm.activity
 
 import android.content.Intent
 import android.util.Log
+import com.blankj.utilcode.util.ActivityUtils
 import com.lizl.onlooker.R
 import com.lizl.onlooker.databinding.ActivityLoginBinding
 import com.lizl.onlooker.mvvm.base.BaseActivity
@@ -23,6 +24,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(R.layout.activity_login
             {
                 token ?: return
                 AccessTokenUtil.saveAccessToken(token)
+                ActivityUtils.startActivity(MainActivity::class.java)
             }
 
             override fun cancel()

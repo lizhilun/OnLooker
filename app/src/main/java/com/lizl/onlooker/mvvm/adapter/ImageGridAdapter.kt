@@ -23,7 +23,6 @@ class ImageGridAdapter(imageList: MutableList<String>) : BaseQuickAdapter<String
         private val minImageSize = Utils.getApp().resources.getDimensionPixelSize(R.dimen.weibo_item_image_min_size)
     }
 
-
     override fun convert(helper: BaseViewHolder, item: String)
     {
         helper.getBinding<ItemImageGridBinding>()?.apply {
@@ -40,9 +39,9 @@ class ImageGridAdapter(imageList: MutableList<String>) : BaseQuickAdapter<String
                     this.ivImage.scaleType = FIT_CENTER
                     this.ivImage.setImageBitmap(ImageUtil.bitmapAdaptive(bitmap, maxImageSize, maxImageSize, minImageSize, minImageSize))
                 }
-
-                executePendingBindings()
             }
+
+            executePendingBindings()
         }
     }
 }

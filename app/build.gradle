@@ -38,6 +38,25 @@ android {
     dataBinding {
         enabled = true
     }
+
+    //签名信息
+    signingConfigs {
+        releaseConfig {
+            storeFile file("lizl.jks")
+            storePassword "123456"
+            keyAlias "lizl"
+            keyPassword "123456"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.releaseConfig
+        }
+        release {
+            signingConfig signingConfigs.releaseConfig
+        }
+    }
 }
 
 dependencies {
