@@ -26,13 +26,9 @@
     <dimen name="weibo_item_avatar_size">40dp</dimen>
     <dimen name="weibo_divider_line_height">10dp</dimen>
     <dimen name="weibo_item_operation_button_width">80dp</dimen>
-    <dimen name="weibo_item_operation_button_height">24dp</dimen>
+    <dimen name="weibo_item_operation_button_height">18dp</dimen>
     <dimen name="weibo_item_operation_button_image_size">18dp</dimen>
-    <dimen name="weibo_item_operation_button_text_size">10sp</dimen>
-    <dimen name="weibo_item_image_max_size">300dp</dimen>
-    <dimen name="weibo_item_image_min_size">240dp</dimen>
-    <dimen name="weibo_item_video_width">320dp</dimen>
-    <dimen name="weibo_item_video_height">180dp</dimen>
+    <dimen name="weibo_item_operation_button_text_size">@dimen/global_text_size_smaller</dimen>
     <dimen name="weibo_item_video_play_button_size">48dp</dimen>
     <dimen name="weibo_item_text_padding_avatar">10dp</dimen>
     <dimen name="weibo_item_extra_padding_text">5dp</dimen>

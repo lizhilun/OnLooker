@@ -25,9 +25,13 @@
         <item name="android:layout_width">@dimen/weibo_item_operation_button_width</item>
         <item name="android:layout_height">@dimen/weibo_item_operation_button_height</item>
         <item name="android:gravity">start|center_vertical</item>
-        <item name="android:textSize">@dimen/weibo_item_operation_button_text_size</item>
-        <item name="android:textColor">@color/colorSecondaryTextColor</item>
-        <item name="android:drawablePadding">3dp</item>
+        <item name="textSize">@dimen/weibo_item_operation_button_text_size</item>
+        <item name="textColor">@color/colorSecondaryTextColor</item>
+        <item name="drawableWidth">@dimen/weibo_item_operation_button_image_size</item>
+        <item name="drawableHeight">@dimen/weibo_item_operation_button_image_size</item>
+        <item name="drawablePadding">2dp</item>
+        <item name="drawableGravity">start</item>
+        <item name="drawableTint">@color/colorSvgTint</item>
     </style>
 
     <style name="DialogButtonTextStyle">

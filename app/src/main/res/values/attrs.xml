@@ -2,13 +2,24 @@
 <resources>
 
     <declare-styleable name="ImageTextView">
-        <attr name="drawableWidth_left" format="dimension"/>
-        <attr name="drawableHeight_left" format="dimension"/>
-        <attr name="drawableWidth_top" format="dimension"/>
-        <attr name="drawableHeight_top" format="dimension"/>
-        <attr name="drawableWidth_right" format="dimension"/>
-        <attr name="drawableHeight_right" format="dimension"/>
-        <attr name="drawableWidth_bottom" format="dimension"/>
-        <attr name="drawableHeight_bottom" format="dimension"/>
+        <attr name="textColor" format="string|reference" />
+        <attr name="textSize" format="dimension" />
+        <attr name="drawable" format="reference" />
+        <attr name="drawableTint" format="reference|color" />
+        <attr name="drawableWidth" format="dimension" />
+        <attr name="drawableHeight" format="dimension" />
+        <attr name="drawablePadding" format="dimension" />
+        <attr name="drawableGravity" format="enum">
+            <enum name="start" value="1" />
+            <enum name="top" value="2" />
+            <enum name="end" value="3" />
+            <enum name="bottom" value="4" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="SkinImageView">
+        <attr name="android:src" />
+        <attr name="android:tint" />
+        <attr name="srcCompat" />
     </declare-styleable>
 </resources>

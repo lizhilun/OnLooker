@@ -1,118 +1,106 @@
 package com.lizl.onlooker.custom.view
 
 import android.content.Context
-import android.content.res.Resources
-import android.graphics.Canvas
-import android.graphics.drawable.Drawable
-import android.text.TextUtils
 import android.util.AttributeSet
-import androidx.appcompat.widget.AppCompatTextView
+import android.util.TypedValue
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import com.lizl.onlooker.R
+import com.lizl.onlooker.custom.skin.SkinImageView
+import com.lizl.onlooker.util.SkinUtil
+import skin.support.widget.SkinCompatTextView
 
-class ImageTextView(context: Context, attrs: AttributeSet?, defStyle: Int) : AppCompatTextView(context, attrs, defStyle)
+class ImageTextView(context: Context, attrs: AttributeSet?, defStyle: Int) : ConstraintLayout(context, attrs, defStyle)
 {
     constructor(context: Context) : this(context, null)
 
-    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, Resources.getSystem().getIdentifier("textViewStyle", "attr", "android"))
-
-    private var leftDrawableWidth = 10
-    private var leftDrawableHeight = 10
-    private var topDrawableWidth = 10
-    private var topDrawableHeight = 10
-    private var rightDrawableWidth = 10
-    private var rightDrawableHeight = 10
-    private var bottomDrawableWidth = 10
-    private var bottomDrawableHeight = 10
-
-    private var left: Drawable? = null
-    private var top: Drawable? = null
-    private var right: Drawable? = null
-    private var bottom: Drawable? = null
+    constructor(context: Context, attrs: AttributeSet?) : this(context, attrs, 0)
 
     init
     {
-        getAttributes(context, attrs, defStyle)
+        initView(context, attrs)
     }
 
-    private fun getAttributes(context: Context, attrs: AttributeSet?, defStyleAttr: Int)
+    companion object
     {
-        /**
-         * 获得我们所定义的自定义样式属性
-         */
-        val typedArray = context.theme.obtainStyledAttributes(attrs, R.styleable.ImageTextView, defStyleAttr, 0)
+        private const val DRAWABLE_GRAVITY_START = 1
+        private const val DRAWABLE_GRAVITY_TOP = 2
+        private const val DRAWABLE_GRAVITY_END = 3
+        private const val DRAWABLE_GRAVITY_BOTTOM = 4
+    }
+
+    private lateinit var imageView: SkinImageView
+    private lateinit var textView: SkinCompatTextView
+
+    private fun initView(context: Context, attrs: AttributeSet?)
+    {
+        imageView = SkinImageView(context).apply {
+            id = generateViewId()
+            addView(this)
+        }
+
+        textView = SkinCompatTextView(context).apply {
+            id = generateViewId()
+            addView(this)
+        }
+
+        var drawableWidth = 10
+        var drawableHeight = 10
+        var drawablePadding = 10
+        var drawableGravity = DRAWABLE_GRAVITY_START
+        var drawableResId: Int? = null
+        var drawableTintResId: Int? = null
+
+        val typedArray = context.obtainStyledAttributes(attrs, R.styleable.ImageTextView)
         val n = typedArray.indexCount
         for (i in 0 until n)
         {
             when (val attr = typedArray.getIndex(i))
             {
-                R.styleable.ImageTextView_drawableWidth_left -> leftDrawableWidth = typedArray.getLayoutDimension(attr, 10)
-                R.styleable.ImageTextView_drawableHeight_left -> leftDrawableHeight = typedArray.getLayoutDimension(attr, 10)
-                R.styleable.ImageTextView_drawableWidth_top -> topDrawableWidth = typedArray.getLayoutDimension(attr, 10)
-                R.styleable.ImageTextView_drawableHeight_top -> topDrawableHeight = typedArray.getLayoutDimension(attr, 10)
-                R.styleable.ImageTextView_drawableWidth_right -> rightDrawableWidth = typedArray.getLayoutDimension(attr, 10)
-                R.styleable.ImageTextView_drawableHeight_right -> rightDrawableHeight = typedArray.getLayoutDimension(attr, 10)
-                R.styleable.ImageTextView_drawableWidth_bottom -> bottomDrawableWidth = typedArray.getLayoutDimension(attr, 10)
-                R.styleable.ImageTextView_drawableHeight_bottom -> bottomDrawableHeight = typedArray.getLayoutDimension(attr, 10)
+                R.styleable.ImageTextView_textSize -> textView.setTextSize(TypedValue.COMPLEX_UNIT_PX, typedArray.getDimension(attr, 10F))
+                R.styleable.ImageTextView_textColor -> textView.setTextColor(typedArray.getColor(attr, SkinUtil.getColor(context, R.color.colorTextColor)))
+                R.styleable.ImageTextView_drawable -> drawableResId = typedArray.getResourceId(attr, R.color.transparent)
+                R.styleable.ImageTextView_drawableTint -> drawableTintResId = typedArray.getResourceId(attr, R.color.colorSvgTint)
+                R.styleable.ImageTextView_drawableWidth -> drawableWidth = typedArray.getLayoutDimension(attr, drawableWidth)
+                R.styleable.ImageTextView_drawableHeight -> drawableHeight = typedArray.getLayoutDimension(attr, drawableHeight)
+                R.styleable.ImageTextView_drawablePadding -> drawablePadding = typedArray.getLayoutDimension(attr, drawablePadding)
+                R.styleable.ImageTextView_drawableGravity -> drawableGravity = typedArray.getLayoutDimension(attr, drawableGravity)
             }
         }
         typedArray.recycle()
 
-        /*
-         * setCompoundDrawablesWithIntrinsicBounds方法会首先在父类的构造方法中执行，
-         * 彼时执行时drawable的大小还都没有开始获取，都是0,
-         * 这里获取完自定义的宽高属性后再次调用这个方法，插入drawable的大小
-         * */
-        setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom)
-    }
+        drawableTintResId?.let { imageView.setTintResId(it) }
+        drawableResId?.let { imageView.setImageResource(it) }
 
-    override fun setCompoundDrawablesWithIntrinsicBounds(left: Drawable?, top: Drawable?, right: Drawable?, bottom: Drawable?)
-    {
-        this.left = left
-        this.top = top
-        this.right = right
-        this.bottom = bottom
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(this)
 
-        left?.setBounds(0, 0, leftDrawableWidth, leftDrawableHeight)
-        right?.setBounds(0, 0, rightDrawableWidth, rightDrawableHeight)
-        top?.setBounds(0, 0, topDrawableWidth, topDrawableHeight)
-        bottom?.setBounds(0, 0, bottomDrawableWidth, bottomDrawableHeight)
-
-        setCompoundDrawables(left, top, right, bottom)
-    }
-
-    override fun onDraw(canvas: Canvas)
-    {
-        val mPaint = paint
-        val drawables = compoundDrawables
-        val drawableTop = drawables[1]
-        val drawableLeft = drawables[0]
-        if (drawableTop != null)
+        when (drawableGravity)
         {
-            var textHeight = 0f
-            if (!TextUtils.isEmpty(text.toString()))
+            DRAWABLE_GRAVITY_START ->
             {
-                textHeight = mPaint.descent() - mPaint.ascent()
-            }
-            val drawablePadding = compoundDrawablePadding
-            val drawableHeight = drawableTop.bounds.height()
-            val bodyHeight = textHeight + drawableHeight.toFloat() + drawablePadding.toFloat()
-            canvas.translate(0f, (height - bodyHeight) / 2)
-        }
-        else if (drawableLeft != null)
-        {
-            val textWidth = paint.measureText(text.toString())
-            val drawablePadding = compoundDrawablePadding
-            val drawableWidth = drawableLeft.bounds.width()
-            val bodyWidth = textWidth + drawableWidth.toFloat() + drawablePadding.toFloat()
-            if (drawableWidth > 10)
-            {
-                canvas.translate((width - bodyWidth) / 2, 0f)
-            }
-            else
-            {
-                canvas.translate((width - textWidth) / 2 - drawablePadding, 0f)
+                constraintSet.constrainWidth(imageView.id, drawableWidth)
+                constraintSet.constrainHeight(imageView.id, drawableHeight)
+                constraintSet.connect(imageView.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+                constraintSet.connect(imageView.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+                constraintSet.connect(imageView.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+                constraintSet.connect(imageView.id, ConstraintSet.END, textView.id, ConstraintSet.START, drawablePadding)
+                constraintSet.setHorizontalChainStyle(imageView.id, ConstraintSet.CHAIN_PACKED)
+
+                constraintSet.constrainWidth(imageView.id, LayoutParams.WRAP_CONTENT)
+                constraintSet.constrainHeight(imageView.id, LayoutParams.WRAP_CONTENT)
+                constraintSet.connect(textView.id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+                constraintSet.connect(textView.id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+                constraintSet.connect(textView.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+                constraintSet.connect(textView.id, ConstraintSet.START, imageView.id, ConstraintSet.END)
             }
         }
-        super.onDraw(canvas)
+
+        constraintSet.applyTo(this)
+    }
+
+    fun setText(text: String)
+    {
+        textView.text = text
     }
 }

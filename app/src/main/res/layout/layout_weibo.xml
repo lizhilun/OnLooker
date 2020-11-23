@@ -103,52 +103,45 @@
         android:id="@+id/tv_forward"
         style="@style/WeiboOperationButtonStyle"
         android:layout_marginTop="@dimen/weibo_item_bottom_padding_extra"
-        android:drawableLeft="@mipmap/ic_forward_gray"
+        app:drawable="@drawable/ic_baseline_forward_24"
         app:layout_constraintEnd_toStartOf="@+id/tv_comment"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cl_extra_layout"
-        app:layout_goneMarginTop="15dp"
-        imageCenterView:drawableHeight_left="@dimen/weibo_item_operation_button_image_size"
-        imageCenterView:drawableWidth_left="@dimen/weibo_item_operation_button_image_size" />
+        app:layout_goneMarginTop="15dp" />
 
     <com.lizl.onlooker.custom.view.ImageTextView
         android:id="@+id/tv_comment"
         style="@style/WeiboOperationButtonStyle"
-        android:drawableLeft="@mipmap/ic_comment_gray"
+        app:drawable="@drawable/ic_baseline_comment_24"
         app:layout_constraintEnd_toStartOf="@+id/tv_like"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@+id/tv_forward"
-        app:layout_constraintTop_toTopOf="@+id/tv_forward"
-        imageCenterView:drawableHeight_left="@dimen/weibo_item_operation_button_image_size"
-        imageCenterView:drawableWidth_left="@dimen/weibo_item_operation_button_image_size" />
+        app:layout_constraintTop_toTopOf="@+id/tv_forward" />
 
     <com.lizl.onlooker.custom.view.ImageTextView
         android:id="@+id/tv_like"
         style="@style/WeiboOperationButtonStyle"
-        android:drawableLeft="@mipmap/ic_like_gray"
+        app:drawable="@drawable/ic_baseline_like_24"
         app:layout_constraintEnd_toStartOf="@+id/iv_more"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@+id/tv_comment"
-        app:layout_constraintTop_toTopOf="@+id/tv_forward"
-        imageCenterView:drawableHeight_left="@dimen/weibo_item_operation_button_image_size"
-        imageCenterView:drawableWidth_left="@dimen/weibo_item_operation_button_image_size" />
+        app:layout_constraintTop_toTopOf="@+id/tv_forward" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+    <com.lizl.onlooker.custom.skin.SkinImageView
         android:id="@+id/iv_more"
         android:layout_width="40dp"
-        android:layout_height="@dimen/weibo_item_operation_button_height"
+        android:layout_height="@dimen/weibo_item_operation_button_image_size"
         android:layout_marginEnd="@dimen/weibo_item_content_padding_edge"
         android:paddingTop="3dp"
         android:paddingBottom="3dp"
         android:scaleType="fitCenter"
-        android:src="@mipmap/ic_more_gray"
+        android:src="@drawable/ic_baseline_more_horiz_24"
+        android:tint="@color/colorSvgTint"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toEndOf="@+id/tv_like"
-        app:layout_constraintTop_toTopOf="@+id/tv_forward"
-        imageCenterView:drawableHeight_left="@dimen/weibo_item_operation_button_image_size"
-        imageCenterView:drawableWidth_left="@dimen/weibo_item_operation_button_image_size" />
+        app:layout_constraintTop_toTopOf="@+id/tv_forward" />
 
     <androidx.constraintlayout.widget.Group
         android:id="@+id/group_bottom_view"

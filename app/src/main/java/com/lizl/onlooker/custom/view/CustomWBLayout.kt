@@ -48,9 +48,9 @@ class CustomWBLayout(context: Context, attrs: AttributeSet? = null, defStyle: In
         tv_nickname.text = wbModel.user?.name
         tv_release_time.text = WBUtil.handleWBTime(wbModel.createdAt)
 
-        tv_forward.text = wbModel.repostsCount.toString()
-        tv_comment.text = wbModel.commentsCount.toString()
-        tv_like.text = wbModel.attitudesCount.toString()
+        tv_forward.setText(wbModel.repostsCount.toString())
+        tv_comment.setText(wbModel.commentsCount.toString())
+        tv_like.setText(wbModel.attitudesCount.toString())
 
         // 处理图片
         val imageList = wbModel.getPreviewImageList()

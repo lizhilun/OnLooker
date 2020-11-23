@@ -1,6 +1,7 @@
 package com.lizl.onlooker.mvvm.fragment
 
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory
+import androidx.recyclerview.widget.RecyclerView.AdapterDataObserver
 import com.lizl.news.mvvm.base.BaseFragment
 import com.lizl.onlooker.R
 import com.lizl.onlooker.custom.other.ListDividerItemDecoration
@@ -38,6 +39,18 @@ class WbListFragment : BaseFragment<FragmentWeiboListBinding>(R.layout.fragment_
 
             it.setOnLoadMoreListener { wbHomeViewModel.loadMoreData() }
         }
+
+        wbAdapter.registerAdapterDataObserver(object : AdapterDataObserver()
+        {
+            override fun onItemRangeInserted(positionStart: Int, itemCount: Int)
+            {
+                super.onItemRangeInserted(positionStart, itemCount)
+                if (positionStart == 0 && itemCount > 0)
+                {
+                    dataBinding.rvWbList.scrollToPosition(0)
+                }
+            }
+        })
     }
 
     override fun initData()
