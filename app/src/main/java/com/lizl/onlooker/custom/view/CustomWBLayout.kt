@@ -24,12 +24,11 @@ class CustomWBLayout(context: Context, attrs: AttributeSet? = null, defStyle: In
 
     companion object
     {
-        private val extraLayoutPaddingEdge = Utils.getApp().resources.getDimensionPixelSize(R.dimen.weibo_item_content_padding_edge)
-        private val forwardLayoutPaddingContent = Utils.getApp().resources.getDimensionPixelSize(R.dimen.weibo_item_forward_content_padding_content)
+        private val contentPaddingText = Utils.getApp().resources.getDimensionPixelSize(R.dimen.weibo_item_extra_padding_text)
+        private val contentPaddingEdge = Utils.getApp().resources.getDimensionPixelSize(R.dimen.weibo_item_content_padding_edge)
 
-        private val extraLayoutPadding: IntArray = intArrayOf(extraLayoutPaddingEdge, 0, extraLayoutPaddingEdge, 0)
-        private val forwardLayoutPadding: IntArray =
-            intArrayOf(extraLayoutPaddingEdge, forwardLayoutPaddingContent, extraLayoutPaddingEdge, forwardLayoutPaddingContent)
+        private val extraLayoutPadding: IntArray = intArrayOf(contentPaddingEdge, 0, contentPaddingEdge, 0)
+        private val forwardLayoutPadding: IntArray = intArrayOf(contentPaddingEdge, contentPaddingText, contentPaddingEdge, contentPaddingEdge)
 
         private val minScreenSize = ScreenUtils.getScreenHeight().coerceAtMost(ScreenUtils.getAppScreenWidth())
         private val maxImageSize = minScreenSize / 5 * 4
@@ -87,6 +86,7 @@ class CustomWBLayout(context: Context, attrs: AttributeSet? = null, defStyle: In
         {
             tv_forward_content.isVisible = false
             cl_extra_layout.setPadding(extraLayoutPadding[0], extraLayoutPadding[1], extraLayoutPadding[2], extraLayoutPadding[3])
+            cl_extra_layout.setBackgroundResource(R.color.transparent)
         }
     }
 }
