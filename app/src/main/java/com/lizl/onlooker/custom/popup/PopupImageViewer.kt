@@ -21,7 +21,6 @@ class PopupImageViewer(context: Context, private val imageList: MutableList<Stri
     {
         popupInfo?.let {
             it.hasShadowBg = true
-            it.hasStatusBar = false
             it.popupAnimation = PopupAnimation.ScaleAlphaFromCenter
         }
 

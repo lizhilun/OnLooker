@@ -3,6 +3,7 @@ package com.lizl.onlooker.util
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.lizl.onlooker.custom.view.CustomWBImageView
 import com.lizl.onlooker.custom.view.CustomWBLayout
 import com.lizl.onlooker.mvvm.model.weibo.WbModel
@@ -46,5 +47,16 @@ object DataBindingUtil
     {
         imageUrl ?: return
         imageView.bindImage(imageUrl)
+    }
+
+    @JvmStatic
+    @BindingAdapter("app:overScrollMode")
+    fun bindOverScrollModel(viewPager: ViewPager2, mode: Int)
+    {
+        val child = viewPager.getChildAt(0)
+        if (child is RecyclerView)
+        {
+            child.overScrollMode = mode
+        }
     }
 }
