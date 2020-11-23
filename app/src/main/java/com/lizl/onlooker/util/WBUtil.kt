@@ -12,9 +12,15 @@ import android.text.style.ClickableSpan
 import android.text.style.ImageSpan
 import android.view.View
 import com.blankj.utilcode.util.ColorUtils
+import com.blankj.utilcode.util.GsonUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.StringUtils
+import com.google.gson.reflect.TypeToken
 import com.lizl.onlooker.R
 import com.lizl.onlooker.constant.AppConstant
+import com.lizl.onlooker.mvvm.model.weibo.WbModel
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import java.util.regex.*
@@ -26,6 +32,30 @@ object WBUtil
     private val urlPattern = Pattern.compile(AppConstant.URL_PATTERN_REGEX)
     private val emotionPattern = Pattern.compile(AppConstant.EMOTION_PATTERN_REGEX)
     private val highlightTextColor = ColorUtils.getColor(R.color.colorPrimary)
+
+    private const val KEY_WB_CACHE = "KEY_WB_CACHE"
+
+    fun saveWBCache(wbList: List<WbModel>)
+    {
+        GlobalScope.launch {
+            val saveWbList = wbList.subList(0, 20)
+            SPUtils.getInstance().put(KEY_WB_CACHE, GsonUtils.toJson(saveWbList))
+        }
+    }
+
+    fun getCacheWBList(): List<WbModel>
+    {
+        return try
+        {
+            val cacheInfo = SPUtils.getInstance().getString(KEY_WB_CACHE)
+            GsonUtils.fromJson(cacheInfo, object : TypeToken<ArrayList<WbModel>>()
+            {}.type)
+        }
+        catch (e: Exception)
+        {
+            emptyList()
+        }
+    }
 
     /**
      * 处理微博发送时间
@@ -173,20 +203,20 @@ object WBUtil
         {
             val key = emotion.group() // 获取匹配到的具体字符
             val start = emotion.start() // 匹配字符串的开始位置
-//            val emotionPath = EmotionUtil.instance.getEmotionPath(key)
-//            if (!TextUtils.isEmpty(emotionPath))
-//            {
-//                val options = BitmapFactory.Options()
-//                options.inJustDecodeBounds = true
-//                val scale = (options.outWidth / 32)
-//                options.inJustDecodeBounds = false
-//                options.inSampleSize = scale
-//                val bitmap = BitmapFactory.decodeFile(emotionPath, options)
-//                val imageSize = context.resources.getDimensionPixelSize(R.dimen.global_text_size)
-//                val imageBit = ImageUtil.bitmapScale(bitmap, imageSize, imageSize)
-//
-//                spannable.setSpan(EmotionSpan(context, imageBit), start, start + key.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
-//            }
+            //            val emotionPath = EmotionUtil.instance.getEmotionPath(key)
+            //            if (!TextUtils.isEmpty(emotionPath))
+            //            {
+            //                val options = BitmapFactory.Options()
+            //                options.inJustDecodeBounds = true
+            //                val scale = (options.outWidth / 32)
+            //                options.inJustDecodeBounds = false
+            //                options.inSampleSize = scale
+            //                val bitmap = BitmapFactory.decodeFile(emotionPath, options)
+            //                val imageSize = context.resources.getDimensionPixelSize(R.dimen.global_text_size)
+            //                val imageBit = ImageUtil.bitmapScale(bitmap, imageSize, imageSize)
+            //
+            //                spannable.setSpan(EmotionSpan(context, imageBit), start, start + key.length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+            //            }
         }
         return spannable
     }

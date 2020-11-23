@@ -8,6 +8,7 @@ import com.lizl.onlooker.databinding.FragmentWeiboListBinding
 import com.lizl.onlooker.mvvm.adapter.WBAdapter
 import com.lizl.onlooker.mvvm.viewmodel.WbHomeViewModel
 import com.lizl.onlooker.util.SkinUtil
+import com.lizl.onlooker.util.WBUtil
 
 class WbListFragment : BaseFragment<FragmentWeiboListBinding>(R.layout.fragment_weibo_list)
 {
@@ -28,11 +29,8 @@ class WbListFragment : BaseFragment<FragmentWeiboListBinding>(R.layout.fragment_
             it.setOnRefreshListener { wbHomeViewModel.refreshMoreData() }
         }
 
-        dataBinding.rvWbList.addItemDecoration(
-            ListDividerItemDecoration(
-                resources.getDimensionPixelSize(R.dimen.weibo_divider_line_height), SkinUtil.getColor(requireContext(), R.color.colorDivideLine)
-            )
-        )
+        dataBinding.rvWbList.addItemDecoration(ListDividerItemDecoration(resources.getDimensionPixelSize(R.dimen.weibo_divider_line_height),
+                SkinUtil.getColor(requireContext(), R.color.colorDivideLine)))
 
         wbAdapter.loadMoreModule?.let {
             it.isEnableLoadMore = true
@@ -48,6 +46,7 @@ class WbListFragment : BaseFragment<FragmentWeiboListBinding>(R.layout.fragment_
             dataBinding.srlLayout.finishRefresh()
             wbAdapter.loadMoreModule?.loadMoreComplete()
             wbAdapter.setDiffNewData(it)
+            WBUtil.saveWBCache(it)
         })
 
         wbHomeViewModel.requestData()

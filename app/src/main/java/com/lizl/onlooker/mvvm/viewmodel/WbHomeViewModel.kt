@@ -6,6 +6,7 @@ import com.lizl.onlooker.mvvm.model.weibo.WBRequestResponseModel
 import com.lizl.onlooker.mvvm.model.weibo.WbModel
 import com.lizl.onlooker.util.AccessTokenUtil
 import com.lizl.onlooker.util.HttpUtil
+import com.lizl.onlooker.util.WBUtil
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -16,7 +17,11 @@ class WbHomeViewModel : ViewModel()
     fun requestData()
     {
         GlobalScope.launch {
-            val wbList = requestWBData().sortedByDescending { it.id }.toMutableList()
+            var wbList = WBUtil.getCacheWBList().sortedByDescending { it.id }.toMutableList()
+            if (wbList.isEmpty())
+            {
+                wbList = requestWBData().sortedByDescending { it.id }.toMutableList()
+            }
             wbListLiveData.postValue(wbList)
         }
     }
